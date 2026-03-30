@@ -1,0 +1,64 @@
+<div class="form-page">
+  <div class="form-card">
+    <!-- Header -->
+    <div class="form-header">
+      <button mat-icon-button routerLink="/" class="back-btn" id="back-btn">
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+      <div>
+        <h2 class="form-title">{{ isEditMode() ? 'Edit Task' : 'New Task' }}</h2>
+        <p class="form-subtitle">{{ isEditMode() ? 'Update your task details' : 'Add something to your list' }}</p>
+      </div>
+    </div>
+
+    <!-- Form -->
+    <form (ngSubmit)="onSubmit()" #taskForm="ngForm">
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Task Title</mat-label>
+        <input
+          matInput
+          type="text"
+          id="title"
+          name="title"
+          [ngModel]="title()"
+          (ngModelChange)="title.set($event)"
+          required
+          minlength="2"
+          maxlength="200"
+          placeholder="What needs to be done?"
+          #titleInput="ngModel"
+        />
+        <mat-icon matSuffix>edit_note</mat-icon>
+        @if (titleInput.invalid && titleInput.touched) {
+          <mat-error>
+            @if (titleInput.errors?.['required']) { Title is required. }
+            @if (titleInput.errors?.['minlength']) { Min. 2 characters required. }
+          </mat-error>
+        }
+      </mat-form-field>
+
+      <div class="form-actions">
+        <button
+          mat-raised-button
+          color="primary"
+          type="submit"
+          [disabled]="taskForm.invalid || submitting()"
+          id="submit-btn"
+          class="submit-btn"
+        >
+          @if (submitting()) {
+            <mat-icon class="spin-icon">refresh</mat-icon>
+          } @else {
+            <mat-icon>{{ isEditMode() ? 'save' : 'add_task' }}</mat-icon>
+          }
+          {{ isEditMode() ? 'Update Task' : 'Create Task' }}
+        </button>
+
+        <button mat-stroked-button type="button" routerLink="/" id="cancel-btn">
+          <mat-icon>close</mat-icon>
+          Cancel
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,108 @@
+<div class="tazk-container">
+  <!-- Header -->
+  <div class="tazk-header">
+    <div>
+      <h1 class="tazk-title">My Tasks</h1>
+      <p class="tazk-subtitle">Stay organized, get things done</p>
+    </div>
+    <button mat-fab extended color="primary" routerLink="/add" id="add-task-btn">
+      <mat-icon>add_task</mat-icon>
+      Add Task
+    </button>
+  </div>
+
+  <!-- Stats Cards -->
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="stat-number" [class.count-animate]="animateTotal()">
+        {{ totalTasks() }}
+      </div>
+      <div class="stat-label">Total Tasks</div>
+    </div>
+    <div class="stat-card stat-success">
+      <div class="stat-number">{{ completedTasks() }}</div>
+      <div class="stat-label">Completed</div>
+    </div>
+    <div class="stat-card stat-warning">
+      <div class="stat-number">{{ pendingTasks() }}</div>
+      <div class="stat-label">Pending</div>
+    </div>
+  </div>
+
+  <!-- Progress Bar -->
+  @if (totalTasks() > 0) {
+    <div class="progress-section">
+      <div class="progress-header">
+        <span class="progress-label">Overall Progress</span>
+        <span class="progress-value">{{ completionPercent() }}%</span>
+      </div>
+      <mat-progress-bar
+        mode="determinate"
+        [value]="completionPercent()"
+      ></mat-progress-bar>
+    </div>
+  }
+
+  <!-- Loading -->
+  @if (loading()) {
+    <div class="loading-state">
+      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+      <p class="loading-text">Loading tasks...</p>
+    </div>
+  }
+
+  <!-- Empty State -->
+  @if (!loading() && tasks().length === 0) {
+    <div class="empty-state">
+      <mat-icon class="empty-icon">inbox</mat-icon>
+      <h3>No tasks yet</h3>
+      <p>Click <strong>"Add Task"</strong> to get started!</p>
+    </div>
+  }
+
+  <!-- Task List -->
+  @if (!loading() && tasks().length > 0) {
+    <div class="task-list">
+      @for (task of tasks(); track task.id) {
+        <div class="task-card" [class.completed]="task.isCompleted">
+          <div class="task-body">
+            <!-- Checkbox -->
+            <mat-checkbox
+              [checked]="task.isCompleted"
+              (change)="toggleComplete(task)"
+              color="primary"
+              id="toggle-{{ task.id }}"
+            ></mat-checkbox>
+
+            <!-- Task Info -->
+            <div class="task-info" [class.done]="task.isCompleted">
+              <span class="task-title">{{ task.title }}</span>
+              <span class="task-date">{{ task.createdAt | date:'MMM d, y · h:mm a' }}</span>
+            </div>
+
+            <!-- Actions -->
+            <div class="task-actions">
+              <button
+                mat-icon-button
+                [routerLink]="['/edit', task.id]"
+                matTooltip="Edit task"
+                id="edit-{{ task.id }}"
+              >
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button
+                mat-icon-button
+                (click)="confirmDelete(task.id)"
+                [matTooltip]="pendingDeleteId() === task.id ? 'Click again to confirm!' : 'Delete task'"
+                [class.delete-armed]="pendingDeleteId() === task.id"
+                id="delete-{{ task.id }}"
+              >
+                <mat-icon>delete_outline</mat-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  }
+</div>

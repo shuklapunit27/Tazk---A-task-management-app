@@ -1,0 +1,156 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap');
+
+:root {
+  --bg-body: #0f0f17;
+  --bg-surface: #1a1a2e;
+  --bg-surface-hover: #22223a;
+  --bg-card: #1e1e32;
+  --accent: #ff4500;
+  --accent-light: #ffd700;
+  --accent-dark: #ff8c00;
+  --text-primary: #eaeaf0;
+  --text-secondary: #9ca3af;
+  --text-muted: #6b7280;
+  --success: #34d399;
+  --warning: #fbbf24;
+  --danger: #ff6347;
+  --border: #2a2a40;
+  --shadow: rgba(0, 0, 0, 0.4);
+  --fire-red: #ff4500;
+  --fire-orange: #ff8c00;
+  --fire-gold: #ffd700;
+  --fire-tomato: #ff6347;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--bg-body);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Material overrides for dark theme */
+.mat-mdc-fab.mat-primary,
+.mat-mdc-mini-fab.mat-primary {
+  background: linear-gradient(45deg, #ff4500, #ff8c00) !important;
+}
+
+.mat-mdc-extended-fab {
+  background: linear-gradient(45deg, #ff4500, #ff8c00) !important;
+  --mdc-extended-fab-label-text-color: #fff !important;
+  font-weight: 900 !important;
+  color: #fff !important;
+}
+
+.mat-mdc-raised-button.mat-primary {
+  background: linear-gradient(45deg, #ff4500, #ff8c00) !important;
+  --mdc-protected-button-label-text-color: #fff !important;
+  color: #fff !important;
+  font-weight: 900 !important;
+}
+
+.mat-mdc-icon-button {
+  --mdc-icon-button-icon-color: var(--text-secondary);
+}
+
+.mat-mdc-progress-bar {
+  --mdc-linear-progress-active-indicator-color: var(--fire-gold);
+  --mdc-linear-progress-track-color: var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.mat-mdc-checkbox {
+  --mdc-checkbox-selected-checkmark-color: #fff;
+  --mdc-checkbox-selected-focus-icon-color: var(--fire-gold);
+  --mdc-checkbox-selected-hover-icon-color: var(--fire-gold);
+  --mdc-checkbox-selected-icon-color: var(--fire-gold);
+  --mdc-checkbox-selected-pressed-icon-color: var(--fire-gold);
+  --mdc-checkbox-unselected-icon-color: var(--text-muted);
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+::ng-deep .mat-mdc-checkbox:hover,
+::ng-deep .mat-mdc-checkbox:focus {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+.mat-mdc-form-field {
+  width: 100%;
+}
+
+.mat-mdc-text-field-wrapper {
+  background-color: var(--bg-surface) !important;
+  border-radius: 12px !important;
+}
+
+.mdc-text-field--filled:not(.mdc-text-field--disabled) {
+  background-color: var(--bg-surface) !important;
+}
+
+.mat-mdc-form-field-focus-overlay {
+  background-color: transparent !important;
+}
+
+input.mat-mdc-input-element {
+  color: var(--text-primary) !important;
+}
+
+.mdc-floating-label {
+  color: var(--text-secondary) !important;
+}
+
+.mdc-line-ripple::after {
+  border-bottom-color: var(--accent) !important;
+}
+
+/* Tooltip styling */
+.mat-mdc-tooltip .mdc-tooltip__surface {
+  background-color: var(--danger) !important;
+  color: #fff !important;
+  font-weight: 500;
+  font-size: 0.8rem;
+  border-radius: 8px;
+  padding: 6px 12px;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-body);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+
+/* Animated counter */
+@keyframes countPulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.25);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.count-animate {
+  animation: countPulse 0.4s ease-out;
+}
