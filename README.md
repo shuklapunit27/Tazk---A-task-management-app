@@ -1,6 +1,6 @@
 # 🚀 TAZK - Task Management System
 
-![App Screenshot](Tazk.png)
+![App Screenshot](Tazk.PNG)
 
 A high-performance, modern Task Management Web Application built for the **HCLTech Graduate Engineer Trainee** hiring drive.
 
